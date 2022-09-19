@@ -1,0 +1,41 @@
+(function($) {
+
+    // add attributes
+    $('.oxy-tabs').attr('role', 'tablist');
+    $('.oxy-tab').attr('role', 'tab');
+    $('.oxy-tab div').attr('role', 'button');
+    $('.oxy-tab').each(function(index) {
+        $(this).attr('id', 'tab-' + (index + 1));
+    });
+    $('.oxy-tab').attr('tabindex', '0');
+
+
+    $('.oxy-tab').focus(function() {
+        var myId = this.id;
+
+        // reset every other tab
+        $('.oxy-tab').each(function() {
+            if (this.id != myId) {
+                $(this).removeClass('tabs-2805-tab-active');
+                $("[aria-labelledby=" + this.id + "]").addClass('oxy-tabs-contents-content-hidden');
+                $(this).attr('aria-selected', 'false');
+				$('.oxy-tab').attr('tabindex', '-1');
+            }
+        });
+
+        // enable this tab
+        $(this).addClass('tabs-3042-tab-active');
+        $("[aria-labelledby=" + myId + "]").removeClass('oxy-tabs-contents-content-hidden');
+        $(this).attr('aria-selected', 'true');
+    });
+
+
+    $('.oxy-tab-content').attr('role', 'tabpanel');
+    $('.oxy-tab-content').attr('tabindex', '0');
+    $('.oxy-tab-content').each(function(index) {
+        $(this).attr('id', 'panel-' + (index + 1));
+        $(this).attr('aria-labelledby', 'tab-' + (index + 1));
+    });
+
+
+})(jQuery);
